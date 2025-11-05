@@ -10,6 +10,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Map<String, String>> servicesCategory = [
+    {"name": "Ремонт и быт", "icon": "services/wrench.svg"},
+    {"name": "Образование", "icon": "services/learning.svg"},
+    {"name": "Разработка", "icon": "services/coding.svg"},
+    {"name": "Дизайн", "icon": "services/painting.svg"},
+    {"name": "Автоуслуги", "icon": "services/car-service.svg"},
+    {"name": "Ремонт и строительство", "icon": "services/house-repair.svg"},
+    {"name": "Сантехника и отопление", "icon": "services/kran.svg"},
+    {"name": "Электрика", "icon": "services/lightning.svg"},
+    {"name": "Мебель и интерьер", "icon": "services/armchair.svg"},
+    {"name": "Безопасность", "icon": "services/security-camera.svg"},
+    {"name": "Хозяйство и уборка", "icon": "services/broom.svg"},
+    {"name": "Разное", "icon": "services/plus.svg"},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -729,6 +744,111 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                ],
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+              ),
+
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                    child: Text(
+                      " Сервисы",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 12),
+
+                  SizedBox(
+                    height: 290,
+                    child: GridView.count(
+                      // Create a grid with 2 columns.
+                      // If you change the scrollDirection to horizontal,
+                      // this produces 2 rows.
+                      mainAxisSpacing: 2,
+                      crossAxisSpacing: 2,
+                      crossAxisCount: 4,
+                      // Generate 100 widgets that display their index in the list.
+                      children: List.generate(servicesCategory.length, (index) {
+                        return Material(
+                          child: Container(
+                            height: 200,
+                            child: InkWell(
+                              onTap: () {},
+                              splashColor: Colors.transparent,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 54,
+                                    height: 54,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      color: Color(0xFFF2F4F7),
+                                    ),
+                                    padding: EdgeInsets.all(14),
+                                    child: SvgPicture.asset(
+                                      'assets/icons/${servicesCategory[index]['icon']}',
+                                    ),
+                                  ),
+                                  Center(
+                                    child: SizedBox(
+                                      width: 66,
+                                      child: Text(
+                                        servicesCategory[index]['name']!
+                                                    .length >
+                                                17
+                                            ? servicesCategory[index]['name']!
+                                                      .substring(0, 17) +
+                                                  "..."
+                                            : servicesCategory[index]['name']!,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          overflow: TextOverflow.clip,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+
+                  Center(
+                    child: Container(
+                      height: 40,
+                      width: MediaQuery.of(context).size.width * 0.82,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(color: Colors.black, width: 1),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: Text("Все сервисы"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 18),
                 ],
               ),
             ),
