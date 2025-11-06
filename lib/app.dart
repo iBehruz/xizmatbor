@@ -28,20 +28,18 @@ class _AppState extends State<App> {
           segmentedButtonTheme: SegmentedButtonThemeData(
             selectedIcon: SizedBox(),
             style: ButtonStyle(
-              padding: MaterialStateProperty.all(
+              padding: WidgetStateProperty.all(
                 EdgeInsets.symmetric(horizontal: 20, vertical: 14),
               ),
-              elevation: MaterialStateProperty.all(0),
-              side: MaterialStateProperty.all(BorderSide.none),
-              shape: MaterialStateProperty.all(
+              elevation: WidgetStateProperty.all(0),
+              side: WidgetStateProperty.all(BorderSide.none),
+              shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
               ),
-              foregroundColor: MaterialStateProperty.all(Colors.black),
-              overlayColor: MaterialStateProperty.all(Colors.white30),
-              backgroundColor: MaterialStateProperty.resolveWith<Color>((
-                states,
-              ) {
-                if (states.contains(MaterialState.selected)) {
+              foregroundColor: WidgetStateProperty.all(Colors.black),
+              overlayColor: WidgetStateProperty.all(Colors.white30),
+              backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+                if (states.contains(WidgetState.selected)) {
                   return Colors.white; // selected background
                 }
                 return Colors.blueGrey[50]!; // default background

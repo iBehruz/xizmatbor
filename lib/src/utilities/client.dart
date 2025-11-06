@@ -10,9 +10,7 @@ class Client extends http.BaseClient {
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     final token = Config.token;
 
-    if (token != null) {
-      request.headers['Authorization'] = 'Bearer $token';
-    }
+    request.headers['Authorization'] = 'Bearer $token';
 
     return _inner.send(request);
   }

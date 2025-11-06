@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:xizmatbor/src/presentation/pages/menu.dart';
 
 class HomePage extends StatefulWidget {
   static String routeName = '/home';
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffF2F4F7),
-      drawer: Drawer(child: Text("data")),
+      drawer: Menu(),
       appBar: AppBar(
         backgroundColor: Color(0xffF2F4F7),
         leading: Builder(
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: 150,
+                                  width: 160,
                                   child: Text(
                                     "Присоединяйтесь к нам",
                                     style: TextStyle(
@@ -413,21 +414,19 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Spacer(),
-                  Container(
+                  SizedBox(
                     height: 48,
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
+                        shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
                         ),
-                        overlayColor: MaterialStateProperty.all(Colors.black12),
-                        foregroundColor: MaterialStateProperty.all(
-                          Colors.white,
-                        ),
-                        backgroundColor: MaterialStateProperty.all(
+                        overlayColor: WidgetStateProperty.all(Colors.black12),
+                        foregroundColor: WidgetStateProperty.all(Colors.white),
+                        backgroundColor: WidgetStateProperty.all(
                           Color(0xFFF79009),
                         ),
                       ),
@@ -761,7 +760,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.only(top: 16, left: 16, right: 16),
                     child: Text(
-                      " Сервисы",
+                      " Сервисы ${MediaQuery.of(context).size.width}",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
@@ -769,20 +768,25 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: 12),
-
-                  SizedBox(
-                    height: 290,
+                  Container(
+                    height: MediaQuery.of(context).size.width > 450
+                        ? MediaQuery.of(context).size.width - 140
+                        : MediaQuery.of(context).size.width - 80,
                     child: GridView.count(
                       // Create a grid with 2 columns.
                       // If you change the scrollDirection to horizontal,
                       // this produces 2 rows.
-                      mainAxisSpacing: 2,
-                      crossAxisSpacing: 2,
+                      childAspectRatio: MediaQuery.of(context).size.width > 450
+                          ? 1.1
+                          : 0.95,
+                      shrinkWrap: false,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 0,
                       crossAxisCount: 4,
                       // Generate 100 widgets that display their index in the list.
                       children: List.generate(servicesCategory.length, (index) {
                         return Material(
-                          child: Container(
+                          child: SizedBox(
                             height: 200,
                             child: InkWell(
                               onTap: () {},
@@ -809,9 +813,7 @@ class _HomePageState extends State<HomePage> {
                                         servicesCategory[index]['name']!
                                                     .length >
                                                 17
-                                            ? servicesCategory[index]['name']!
-                                                      .substring(0, 17) +
-                                                  "..."
+                                            ? "${servicesCategory[index]['name']!.substring(0, 17)}..."
                                             : servicesCategory[index]['name']!,
                                         style: TextStyle(
                                           fontSize: 12,
@@ -829,14 +831,13 @@ class _HomePageState extends State<HomePage> {
                       }),
                     ),
                   ),
-
                   Center(
-                    child: Container(
+                    child: SizedBox(
                       height: 40,
                       width: MediaQuery.of(context).size.width * 0.82,
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
+                          shape: WidgetStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                               side: BorderSide(color: Colors.black, width: 1),
