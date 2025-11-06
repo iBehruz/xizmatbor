@@ -760,7 +760,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.only(top: 16, left: 16, right: 16),
                     child: Text(
-                      " Сервисы ${MediaQuery.of(context).size.width}",
+                      " Сервисы",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
