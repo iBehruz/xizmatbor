@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:xizmatbor/src/presentation/pages/menu.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
   static String routeName = '/home';
@@ -286,7 +287,14 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: InkWell(
-                      onTap: () => {},
+                      onTap: () async {
+
+                          if (!await Permission.location.isGranted) {
+                            await Permission.location.request();
+                          }
+
+                        Navigator.pushNamed(context, '/location_picker');
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 16,

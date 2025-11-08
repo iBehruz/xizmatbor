@@ -16,6 +16,8 @@ dependencies:
   flutter_svg: ^2.2.1
   get_it: ^9.0.5
   http: ^1.5.0
+  permission_handler: ^12.0.1
+  yandex_mapkit: ^4.2.1
 
 dev_dependencies:
   flutter_test:

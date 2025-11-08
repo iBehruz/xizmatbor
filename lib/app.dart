@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:xizmatbor/src/presentation/bloc/user_bloc.dart';
 import 'package:xizmatbor/src/presentation/pages/home.dart';
+import 'package:xizmatbor/src/presentation/pages/location_picker.dart';
 import 'package:xizmatbor/src/presentation/splash.dart';
 import 'package:xizmatbor/src/config/injection.dart' as di;
 
@@ -79,6 +80,7 @@ class _AppState extends State<App> {
         routes: {
           HomePage.routeName: (context) => HomePage(),
           SplashPage.routeName: (context) => SplashPage(),
+          LocationPickerPage.routeName: (context) => LocationPickerPage(),
         },
         initialRoute: SplashPage.routeName,
         home: SplashPage(),
