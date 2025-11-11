@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:xizmatbor/src/presentation/bloc/user_bloc.dart';
-import 'package:xizmatbor/src/presentation/pages/home.dart';
-import 'package:xizmatbor/src/presentation/pages/location_picker.dart';
+import 'package:xizmatbor/src/presentation/pages/home/index.dart';
+import 'package:xizmatbor/src/presentation/pages/home/location_picker.dart';
 import 'package:xizmatbor/src/presentation/splash.dart';
 import 'package:xizmatbor/src/config/injection.dart' as di;
 
@@ -24,7 +24,7 @@ class _AppState extends State<App> {
       child: MaterialApp(
         navigatorObservers: [routeObserver],
         theme: ThemeData(
-          fontFamily: 'Xizmatbor',
+          fontFamily: 'VelaSans',
 
           segmentedButtonTheme: SegmentedButtonThemeData(
             selectedIcon: SizedBox(),

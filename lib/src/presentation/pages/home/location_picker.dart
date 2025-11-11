@@ -25,11 +25,9 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
     super.initState();
     searchController.text = "";
     _createPlacemarks();
-
   }
 
   void _createPlacemarks() {
-
     final location_up = PlacemarkIcon.single(
       PlacemarkIconStyle(
         image: BitmapDescriptor.fromAssetImage('assets/icons/location_up.png'),
@@ -39,35 +37,34 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
 
     final location_down = PlacemarkIcon.single(
       PlacemarkIconStyle(
-        image: BitmapDescriptor.fromAssetImage('assets/icons/location_down.png'),
+        image: BitmapDescriptor.fromAssetImage(
+          'assets/icons/location_down.png',
+        ),
         scale: 1,
       ),
     );
 
     mapObjects.addAll([
-
       PlacemarkMapObject(
-          mapId: const MapObjectId("custom-location"),
-          point: const Point(latitude: 41.2995, longitude: 69.2401),
-          onTap: (PlacemarkMapObject self, Point point) => print('Tapped me at $point'),
-          opacity: 0.7,
-          direction: 90,
-          isDraggable: true,
-          onDragStart: (_) => print('Drag start'),
-          onDrag: (_, Point point) => print('Drag at point $point'),
-          onDragEnd: (_) => print('Drag end'),
-          icon: location_down,
-          text: const PlacemarkText(
-              text: 'o',
-              style: PlacemarkTextStyle(
-                  placement: TextStylePlacement.top,
-                  color: Colors.amber,
-                  outlineColor: Colors.black
-              )
-          )
+        mapId: const MapObjectId("custom-location"),
+        point: const Point(latitude: 41.2995, longitude: 69.2401),
+        onTap: (PlacemarkMapObject self, Point point) =>
+            print('Tapped me at $point'),
+        opacity: 0.7,
+        direction: 90,
+        isDraggable: true,
+        onDragStart: (_) => print('Drag start'),
+        onDrag: (_, Point point) => print('Drag at point $point'),
+        onDragEnd: (_) => print('Drag end'),
+        icon: PlacemarkIcon.single(
+          PlacemarkIconStyle(
+            image: BitmapDescriptor.fromAssetImage(
+              'assets/icons/location_down.png',
+            ),
+            scale: 1.5,
+          ),
+        ),
       ),
-
-
     ]);
   }
 
@@ -128,37 +125,65 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
               setState(() {
                 // mapObjects[mapObjects.indexOf(mapObjects[0])] =
                 mapObjects.clear();
-                    mapObjects.add(PlacemarkMapObject(
-                        mapId: const MapObjectId("custom-location"),
-                        point: Point(latitude: cameraPosition.target.latitude, longitude: cameraPosition.target.longitude),
-                        onTap: (PlacemarkMapObject self, Point point) => print('Tapped me at $point'),
-                        opacity: 0.7,
-                        direction: 90,
-                        isDraggable: true,
-                        onDragStart: (_) => print('Drag start'),
-                        onDrag: (_, Point point) => print('Drag at point $point'),
-                        onDragEnd: (_) => print('Drag end'),
-                        icon: PlacemarkIcon.single(
-                          PlacemarkIconStyle(
-                            image: BitmapDescriptor.fromAssetImage('assets/icons/location_down.png'),
-                            scale: 1,
+                if (finished) {
+                  mapObjects.add(
+                    PlacemarkMapObject(
+                      mapId: const MapObjectId("custom-location"),
+                      point: Point(
+                        latitude: cameraPosition.target.latitude,
+                        longitude: cameraPosition.target.longitude,
+                      ),
+                      onTap: (PlacemarkMapObject self, Point point) =>
+                          print('Tapped me at $point'),
+                      opacity: 0.7,
+                      direction: 90,
+                      isDraggable: true,
+                      onDragStart: (_) => print('Drag start'),
+                      onDrag: (_, Point point) => print('Drag at point $point'),
+                      onDragEnd: (_) => print('Drag end'),
+                      icon: PlacemarkIcon.single(
+                        PlacemarkIconStyle(
+                          image: BitmapDescriptor.fromAssetImage(
+                            'assets/icons/location_down.png',
                           ),
+                          scale: 1.5,
                         ),
-                        text: const PlacemarkText(
-                            text: 'o',
-                            style: PlacemarkTextStyle(
-                                placement: TextStylePlacement.top
-                            )
-                        )
-                    ));
+                      ),
+                    ),
+                  );
+                } else {
+                  mapObjects.add(
+                    PlacemarkMapObject(
+                      mapId: const MapObjectId("custom-location"),
+                      point: Point(
+                        latitude: cameraPosition.target.latitude,
+                        longitude: cameraPosition.target.longitude,
+                      ),
+                      onTap: (PlacemarkMapObject self, Point point) =>
+                          print('Tapped me at $point'),
+                      opacity: 0.7,
+                      direction: 90,
+                      isDraggable: true,
+                      onDragStart: (_) => print('Drag start'),
+                      onDrag: (_, Point point) => print('Drag at point $point'),
+                      onDragEnd: (_) => print('Drag end'),
+                      icon: PlacemarkIcon.single(
+                        PlacemarkIconStyle(
+                          image: BitmapDescriptor.fromAssetImage(
+                            'assets/icons/location_up.png',
+                          ),
+                          scale: 1.5,
+                        ),
+                      ),
+                    ),
+                  );
+                }
 
-
-                    // .copyWith(
-                    // point: Point(
-                    //     latitude: mapObject.point.latitude - 1,
-                    //     longitude: mapObject.point.longitude - 1
-                    // )
-
+                // .copyWith(
+                // point: Point(
+                //     latitude: mapObject.point.latitude - 1,
+                //     longitude: mapObject.point.longitude - 1
+                // )
               });
             },
           ),
@@ -197,9 +222,10 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                   const Text(
                     'Ваше местоположение',
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
                       color: Colors.black87,
+                      fontFamily: "Unbounded",
                     ),
                   ),
                 ],
@@ -293,6 +319,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
+                          fontFamily: "Unbounded",
                         ),
                       ),
                     ),

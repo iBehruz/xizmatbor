@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:xizmatbor/src/presentation/pages/menu.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
     {"name": "Хозяйство и уборка", "icon": "services/broom.svg"},
     {"name": "Разное", "icon": "services/plus.svg"},
   ];
+  bool cashChecked = true;
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.white,
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
+                                      fontFamily: "Unbounded",
                                     ),
                                   ),
                                 ),
@@ -163,6 +166,7 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.white,
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
+                                      fontFamily: "Unbounded",
                                     ),
                                   ),
                                 ),
@@ -220,6 +224,7 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.white,
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
+                                      fontFamily: "Unbounded",
                                     ),
                                   ),
                                 ),
@@ -275,7 +280,11 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Text(
                     " Быстрый вызова мастер",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      fontFamily: "Unbounded",
+                    ),
                   ),
                   SizedBox(height: 5),
 
@@ -288,10 +297,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: InkWell(
                       onTap: () async {
-
-                          if (!await Permission.location.isGranted) {
-                            await Permission.location.request();
-                          }
+                        if (!await Permission.location.isGranted) {
+                          await Permission.location.request();
+                        }
 
                         Navigator.pushNamed(context, '/location_picker');
                       },
@@ -333,6 +341,7 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,
+                                    fontFamily: "Unbounded",
                                   ),
                                 ),
                               ],
@@ -363,7 +372,259 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: InkWell(
-                      onTap: () => {},
+                      onTap: () {
+                        //paymenttyetap
+
+                        showMaterialModalBottomSheet(
+                          enableDrag: true,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                            ),
+                          ),
+                          context: context,
+                          builder: (context) => Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            height: 250,
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: Container(
+                                    margin: EdgeInsets.only(
+                                      top: 10,
+                                      bottom: 10,
+                                    ),
+                                    height: 5,
+                                    width: 40,
+                                    color: Color(0xFFEAECF0),
+                                  ),
+                                ),
+                                Text(
+                                  "Способ оплаты",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 18,
+                                    fontFamily: "Unbounded",
+                                  ),
+                                ),
+                                Divider(color: Color(0xFFEAECF0)),
+                                Padding(
+                                  padding: EdgeInsetsGeometry.symmetric(
+                                    horizontal: 10,
+                                  ),
+                                  child: Card(
+                                    color: Color(0xffF2F4F7),
+                                    clipBehavior: Clip.hardEdge,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        //paymenttyetap cash
+                                        setState(() {
+                                          cashChecked = true;
+                                        });
+                                        Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 12,
+                                        ),
+                                        height: 67,
+                                        width: MediaQuery.of(
+                                          context,
+                                        ).size.width,
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(8),
+                                              width: 34,
+                                              height: 34,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/icons/cash.svg',
+                                              ),
+                                            ),
+                                            SizedBox(width: 16),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Наличными",
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Spacer(),
+                                            Container(
+                                              padding: EdgeInsets.all(8),
+                                              width: 34,
+                                              height: 34,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: cashChecked == true
+                                                  ? Icon(
+                                                      Icons
+                                                          .check_circle_rounded,
+                                                      color: Color(0xFF17B26A),
+                                                      shadows: [
+                                                        Shadow(
+                                                          color: Color(
+                                                            0xFFD0D5DD,
+                                                          ),
+                                                          blurRadius: 5,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  : Icon(
+                                                      Icons.circle,
+                                                      color: Colors.white,
+                                                      shadows: [
+                                                        Shadow(
+                                                          color: Color(
+                                                            0xFFD0D5DD,
+                                                          ),
+                                                          blurRadius: 5,
+                                                        ),
+                                                      ],
+                                                    ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsGeometry.symmetric(
+                                    horizontal: 10,
+                                  ),
+                                  child: Card(
+                                    color: Color(0xffF2F4F7),
+                                    clipBehavior: Clip.hardEdge,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        //paymenttyetap cash
+                                        setState(() {
+                                          cashChecked = false;
+                                        });
+                                        Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 12,
+                                        ),
+                                        height: 67,
+                                        width: MediaQuery.of(
+                                          context,
+                                        ).size.width,
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(8),
+                                              width: 34,
+                                              height: 34,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/icons/credit-card.svg',
+                                              ),
+                                            ),
+                                            SizedBox(width: 16),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Uzcard",
+                                                  style: TextStyle(
+                                                    color: Color(0xFF667085),
+                                                    fontSize: 13,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "9860 **** 4900",
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Spacer(),
+                                            Container(
+                                              padding: EdgeInsets.all(8),
+                                              width: 34,
+                                              height: 34,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: cashChecked == true
+                                                  ? Icon(
+                                                      Icons.circle,
+                                                      color: Colors.white,
+                                                      shadows: [
+                                                        Shadow(
+                                                          color: Color(
+                                                            0xFFD0D5DD,
+                                                          ),
+                                                          blurRadius: 5,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  : Icon(
+                                                      Icons
+                                                          .check_circle_rounded,
+                                                      color: Color(0xFF17B26A),
+                                                      shadows: [
+                                                        Shadow(
+                                                          color: Color(
+                                                            0xFFD0D5DD,
+                                                          ),
+                                                          blurRadius: 5,
+                                                        ),
+                                                      ],
+                                                    ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 16,
@@ -402,6 +663,7 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,
+                                    fontFamily: "Unbounded",
                                   ),
                                 ),
                               ],
@@ -444,6 +706,7 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
+                          fontFamily: "Unbounded",
                         ),
                       ),
                     ),
@@ -469,6 +732,7 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
+                        fontFamily: "Unbounded",
                       ),
                     ),
                   ),
@@ -560,6 +824,7 @@ class _HomePageState extends State<HomePage> {
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w700,
+                                          fontFamily: "Unbounded",
                                         ),
                                       ),
                                     ],
@@ -596,6 +861,7 @@ class _HomePageState extends State<HomePage> {
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w700,
+                                              fontFamily: "Unbounded",
                                             ),
                                           ),
                                         ],
@@ -701,6 +967,7 @@ class _HomePageState extends State<HomePage> {
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w700,
+                                          fontFamily: "Unbounded",
                                         ),
                                       ),
                                     ],
@@ -737,6 +1004,7 @@ class _HomePageState extends State<HomePage> {
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w700,
+                                              fontFamily: "Unbounded",
                                             ),
                                           ),
                                         ],
@@ -772,6 +1040,7 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
+                        fontFamily: "Unbounded",
                       ),
                     ),
                   ),
@@ -853,7 +1122,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         onPressed: () {},
-                        child: Text("Все сервисы"),
+                        child: Text(
+                          "Все сервисы",
+                          style: TextStyle(fontFamily: "Unbounded"),
+                        ),
                       ),
                     ),
                   ),
